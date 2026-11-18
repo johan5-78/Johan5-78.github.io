@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Casa de Alofoke 3 — En Vivo 24/7</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter & Space Grotesk -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        obsidian: '#09090b',
+                        surface: '#121215',
+                        surfaceHover: '#1a1a1f',
+                        borderSubtle: '#222227',
+                        alofokeRed: '#ef4444',
+                        alofokeAmber: '#f59e0b',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #09090b;
+            color: #f4f4f5;
+            overflow-x: hidden;
+        }
+
+        /* Custom sleek scrollbars */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #09090b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #27272a;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3f3f46;
+        }
+
+        /* Floating Emoji Animation */
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) scale(0.8) rotate(0deg);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-110px) scale(1.25) rotate(12deg);
+                opacity: 0.9;
+            }
+            100% {
+                transform: translateY(-230px) scale(1) rotate(-10deg);
+                opacity: 0;
+            }
+        }
+
+        .floating-emoji {
+            position: absolute;
+            bottom: 12px;
+            pointer-events: none;
+            animation: floatUp 2.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            z-index: 40;
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.6));
+        }
+
+        /* Subtle live pulse ring */
+        @keyframes pulseRing {
+            0% { transform: scale(0.85); opacity: 0.9; }
+            70% { transform: scale(2); opacity: 0; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+        .live-ring::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 9999px;
+            background-color: #ef4444;
+            animation: pulseRing 1.8s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+
+        /* Hide scrollbar utility for horizontal carousels */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-red-500/30 selection:text-red-200">
+
+    <!-- Premiere Countdown / Status Top Micro-Banner -->
+    <div id="premiere-banner" class="bg-gradient-to-r from-red-950/90 via-zinc-900 to-amber-950/80 border-b border-red-500/20 px-4 py-2 text-xs sm:text-sm">
+        <div class="max-w-[1600px] mx-auto flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center gap-2">
+                <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-400 border border-amber-500/30 font-semibold text-[11px] tracking-wide uppercase">
+                    <i data-lucide="sparkles" class="w-3 h-3"></i> Temporada 3
+                </span>
+                <span class="text-zinc-300 font-medium">
+                    Gran Estreno Oficial: <strong class="text-white">23 Nov 2026</strong> • Transmisión ininterrumpida hasta el 2 Ene 2027
+                </span>
+            </div>
+            <div class="flex items-center gap-2 font-mono text-xs bg-black/50 px-3 py-1 rounded-full border border-white/10">
+                <span class="text-zinc-400">Faltan:</span>
+                <span id="countdown-timer" class="text-amber-400 font-bold tracking-wider">11d 22h 14m 00s</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Top Navigation Bar -->
+    <header class="sticky top-0 z-30 bg-[#09090b]/90 backdrop-blur-xl border-b border-borderSubtle">
+        <div class="max-w-[1600px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+            
+            <!-- Brand Logo -->
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-red-600 to-amber-500 flex items-center justify-center shadow-lg shadow-red-600/20">
+                    <i data-lucide="flame" class="w-5 h-5 text-white fill-white"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <h1 class="font-display font-extrabold text-base sm:text-lg tracking-tight text-white leading-none">
+                            LA CASA DE ALOFOKE <span class="text-red-500">3</span>
+                        </h1>
+                    </div>
+                    <p class="text-[11px] text-zinc-500 font-medium tracking-wide hidden sm:block">
+                        REALITY 24/7 • SEÑAL INTERACTIVA OFICIAL
+                    </p>
+                </div>
+            </div>
+
+            <!-- Live Status & Viewer Counter -->
+            <div class="flex items-center gap-2.5 sm:gap-4">
+                <!-- Live Badge -->
+                <div class="flex items-center gap-2 bg-red-500/10 border border-red-500/30 px-3 py-1.5 rounded-full">
+                    <span class="relative flex h-2.5 w-2.5 live-ring">
+                        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
+                    </span>
+                    <span class="text-xs font-extrabold tracking-wider text-red-400 uppercase">EN VIVO 24/7</span>
+                </div>
+
+                <!-- Live Viewer Counter -->
+                <div class="flex items-center gap-1.5 bg-surface border border-borderSubtle px-3 py-1.5 rounded-full text-xs font-medium text-zinc-300">
+                    <i data-lucide="users" class="w-3.5 h-3.5 text-amber-400"></i>
+                    <span id="viewer-count" class="font-bold text-white tabular-nums">148,920</span>
+                    <span class="hidden md:inline text-zinc-500">viendo</span>
+                </div>
+
+                <!-- User Streak Badge -->
+                <button onclick="showToast('🔥 Llevas 42 min seguidos en sintonía. ¡Sigue sumando puntos para votar doble!')" class="hidden sm:flex items-center gap-1.5 bg-surface hover:bg-surfaceHover border border-borderSubtle px-3 py-1.5 rounded-full text-xs font-medium text-zinc-300 transition">
+                    <span class="text-amber-400">⚡</span>
+                    <span id="user-points" class="font-bold text-white">420 pts</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Split-Screen Workspace -->
+    <main class="flex-1 max-w-[1600px] w-full mx-auto px-4 sm:px-6 py-5">
+        <div id="main-grid" class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            
+            <!-- LEFT / TOP AREA: Video Player, Hot Moments Timeline, Viral Clips & Contestants (8 cols on desktop) -->
+            <div id="left-column" class="lg:col-span-8 flex flex-col gap-6 transition-all duration-300">
+                
+                <!-- 1. VIDEO PLAYER CONTAINER -->
+                <section class="bg-surface border border-borderSubtle rounded-2xl overflow-hidden shadow-2xl">
+                    <!-- 16:9 Responsive YouTube Embed Wrapper -->
+                    <div class="relative w-full aspect-video bg-black group">
+                        <!-- Official YouTube Live Embed (Alofoke Radio Show Channel Live / Stream Placeholder) -->
+                        <iframe 
+                            id="yt-player"
+                            class="w-full h-full"
+                            src="https://www.youtube.com/embed/live_stream?channel=UCv7iG0B-A3b_1y6l0a5aH1A&autoplay=0&rel=0&modestbranding=1" 
+                            title="La Casa de Alofoke 3 - Señal en Vivo 24/7"
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            allowfullscreen>
+                        </iframe>
+
+                        <!-- Subtle Top-Left Stream Overlay -->
+                        <div class="absolute top-3 left-3 pointer-events-none flex items-center gap-2 opacity-90">
+                            <span class="px-2.5 py-1 rounded-lg bg-black/75 backdrop-blur-md border border-white/10 text-[11px] font-semibold text-zinc-200 flex items-center gap-1.5">
+                                <span class="w-2 h-2 rounded-full bg-red-500"></span>
+                                Cámara Principal • Sala Central
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Player Action Bar & Interactive Controls -->
+                    <div class="p-4 bg-surface border-t border-borderSubtle flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <h2 class="text-base sm:text-lg font-bold text-white">Transmisión Oficial 24/7 — Día 1 (Previa & Casa)</h2>
+                            </div>
+                            <p class="text-xs text-zinc-400 mt-0.5">
+                                Señal oficial vía Alofoke Radio Show • Marca los momentos clave para la comunidad
+                            </p>
+                        </div>
+
+                        <div class="flex items-center gap-2.5 shrink-0">
+                            <!-- Marcar Momento Caliente Button -->
+                            <button 
+                                id="btn-hot-moment"
+                                onclick="openHotMomentModal()"
+                                class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-red-600 to-amber-600 hover:from-red-500 hover:to-amber-500 text-white font-bold text-xs sm:text-sm shadow-lg shadow-red-600/20 active:scale-95 transition cursor-pointer">
+                                <span>Marcar Momento Caliente</span>
+                                <span class="text-base">🔥</span>
+                            </button>
+
+                            <!-- Modo Teatro Toggle -->
+                            <button 
+                                id="btn-theater"
+                                onclick="toggleTheaterMode()"
+                                title="Alternar Modo Teatro"
+                                class="flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-zinc-800/80 hover:bg-zinc-700 border border-borderSubtle text-zinc-200 text-xs sm:text-sm font-medium transition cursor-pointer">
+                                <i data-lucide="maximize-2" class="w-4 h-4"></i>
+                                <span class="hidden sm:inline" id="theater-label">Modo Teatro</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Live Interactive Timeline ("Momentos Calientes") -->
+                    <div class="px-4 py-3.5 bg-[#0d0d10] border-t border-borderSubtle">
+                        <div class="flex items-center justify-between mb-2.5">
+                            <div class="flex items-center gap-2">
+                                <span class="text-xs font-bold uppercase tracking-wider text-amber-400 flex items-center gap-1">
+                                    <i data-lucide="zap" class="w-3.5 h-3.5 fill-amber-400"></i>
+                                    Timeline de Momentos Calientes
+                                </span>
+                                <span id="moments-count" class="text-[11px] bg-zinc-800 text-zinc-300 px-2 py-0.5 rounded-full font-semibold">4</span>
+                            </div>
+                            <span class="text-[11px] text-zinc-500">Toca un momento para votar su impacto</span>
+                        </div>
+
+                        <!-- Horizontal Scrollable Timeline Pills -->
+                        <div id="timeline-container" class="flex items-center gap-2.5 overflow-x-auto no-scrollbar pb-1">
+                            <!-- Populated via JS -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 2. CLIPS VIRALES DEL DÍA -->
+                <section class="bg-surface border border-borderSubtle rounded-2xl p-4 sm:p-5">
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <h3 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+                                <span class="w-2 h-5 rounded-full bg-red-500 inline-block"></span>
+                                Clips Virales del Día
+                            </h3>
+                            <p class="text-xs text-zinc-400 mt-0.5">Los fragmentos más compartidos en redes sociales en las últimas horas</p>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <button onclick="scrollCarousel('clips-carousel', -260)" class="p-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-borderSubtle text-zinc-400 hover:text-white transition">
+                                <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                            </button>
+                            <button onclick="scrollCarousel('clips-carousel', 260)" class="p-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-borderSubtle text-zinc-400 hover:text-white transition">
+                                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Horizontal Scrollable Vertical-Format Cards -->
+                    <div id="clips-carousel" class="flex gap-3.5 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-1">
+                        <!-- Populated via JS -->
+                    </div>
+                </section>
+
+                <!-- 3. PARTICIPANTES & RANKING EN VIVO -->
+                <section class="bg-surface border border-borderSubtle rounded-2xl p-4 sm:p-5">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+                        <div>
+                            <h3 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+                                <span class="w-2 h-5 rounded-full bg-amber-500 inline-block"></span>
+                                Participantes & Ranking en Vivo
+                            </h3>
+                            <p class="text-xs text-zinc-400 mt-0.5">Apoya a tu favorito con votos gratuitos cada minuto</p>
+                        </div>
+                        <span class="text-xs font-medium text-amber-400 bg-amber-500/10 border border-amber-500/20 px-3 py-1 rounded-full self-start sm:self-auto">
+                            Actualizado en tiempo real
+                        </span>
+                    </div>
+
+                    <div id="contestants-grid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
+                        <!-- Populated via JS -->
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- RIGHT / BOTTOM SIDEBAR: Interactive Poll & Real-Time Fan Chat (4 cols on desktop) -->
+            <aside id="right-column" class="lg:col-span-4 flex flex-col gap-5 lg:sticky lg:top-20">
+                
+                <!-- 1. ENCUESTA RÁPIDA (Interactive Live Poll) -->
+                <section class="bg-surface border border-borderSubtle rounded-2xl p-4 shadow-xl">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-amber-400">
+                            <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+                            Encuesta Rápida en Vivo
+                        </span>
+                        <span id="poll-total-votes" class="text-[11px] text-zinc-400 font-medium">12,480 votos</span>
+                    </div>
+                    <h3 class="text-sm font-bold text-white mb-3 leading-snug">
+                        ¿Quién está dominando la casa en estas primeras horas?
+                    </h3>
+
+                    <div id="poll-options" class="flex flex-col gap-2">
+                        <!-- Populated via JS -->
+                    </div>
+                </section>
+
+                <!-- 2. REAL-TIME INTERACTIVE FAN CHAT -->
+                <section class="bg-surface border border-borderSubtle rounded-2xl flex flex-col h-[540px] lg:h-[600px] overflow-hidden shadow-xl relative">
+                    
+                    <!-- Chat Header + Team Selector -->
+                    <div class="p-3.5 border-b border-borderSubtle bg-[#0e0e11]">
+                        <div class="flex items-center justify-between mb-2.5">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="message-square" class="w-4 h-4 text-red-500"></i>
+                                <h3 class="text-sm font-bold text-white">Chat de Fans en Vivo</h3>
+                            </div>
+                            <span class="text-[11px] text-emerald-400 flex items-center gap-1 font-medium">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Conectado
+                            </span>
+                        </div>
+
+                        <!-- Team Selector Pills -->
+                        <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-0.5">
+                            <span class="text-[11px] text-zinc-500 shrink-0 mr-1">Tu Team:</span>
+                            <div id="team-selector" class="flex items-center gap-1.5">
+                                <!-- Populated via JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Messages Stream Area -->
+                    <div id="chat-messages" class="flex-1 overflow-y-auto p-3.5 space-y-2.5 text-sm scroll-smooth">
+                        <!-- Populated via JS -->
+                    </div>
+
+                    <!-- Floating Emoji Canvas Overlay -->
+                    <div id="emoji-stage" class="absolute inset-x-0 bottom-24 h-60 pointer-events-none overflow-hidden"></div>
+
+                    <!-- Quick Floating Emoji Reaction Bar -->
+                    <div class="px-3 py-2 bg-[#0d0d10] border-t border-borderSubtle flex items-center justify-between">
+                        <span class="text-[11px] text-zinc-500 font-medium">Reacción en vivo:</span>
+                        <div class="flex items-center gap-1.5">
+    
